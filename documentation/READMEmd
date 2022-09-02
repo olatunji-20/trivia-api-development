@@ -1,0 +1,85 @@
+# TRIVIA - API- DEVELOPMENT
+
+- The Trivia api is an api which is connected to a questions frontend to display different questions of different catogories to the user. It has several endpoints the user can easily connect to to get whatever they want, and talking about endpoints they include;
+    
+    1- `ENDPOINT`= /categories `METHOD`= GET
+
+        The "/categries" endpoint is used to get the different categories of the database, a request to it returns something like;
+
+        ```json
+        {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+        }
+        ```
+
+
+
+    2- `ENDPOINT`= /questions `METHOD`= GET
+
+        The "/questions" endpoint is used to get the different questions in the database, a request to it returns all questions in the database;
+
+        ```json
+        {
+        "questions": [
+            {
+            "id": 1,
+            "question": "This is a question",
+            "answer": "This is an answer",
+            "difficulty": 5,
+            "category": 2
+            }
+        ],
+        "totalQuestions": 100,
+        "categories": {
+            "1": "Science",
+            "2": "Art",
+            "3": "Geography",
+            "4": "History",
+            "5": "Entertainment",
+            "6": "Sports"
+        },
+        "currentCategory": "History"
+        }
+        ```
+        NOTE: this endpoint is paginated, as a request to it won't return more than ten question per page.
+
+
+
+    3- `ENDPOINT`= /questions/<int:question_id> `METHOD`= [DELETE]
+
+        This endpoint helps in deleting a specified question from the question collection, which must be referenced through it's ID while passing in the endpoint. A successful delete action action returns a json of the form;
+
+        ```json
+        {
+            "success": true,
+            "deleted": 2,
+            "remaining_questions": {
+                "questions": [
+                    {
+                    "id": 1,
+                    "question": "This is a question",
+                    "answer": "This is an answer",
+                    "difficulty": 5,
+                    "category": 2
+                    }
+                ],
+                "totalQuestions": 100,
+                "categories": {
+                    "1": "Science",
+                    "2": "Art",
+                    "3": "Geography",
+                    "4": "History",
+                    "5": "Entertainment",
+                    "6": "Sports"
+                },
+                "currentCategory": "History"
+                },
+            "total_questions": 15
+        }
+        ```
+

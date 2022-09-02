@@ -248,27 +248,30 @@ def create_app(test_config=None):
             new_category = body.get('quiz_category')
             past_questions = body.get('previous_questions')
 
-            category_id = new_category['id']
+            current_category_id = new_category['id']
 
-            if category_id == 0:
-                questions = Question.query.filter(Question.id.notin_(past_questions), 
-                Question.category == category_id).all()
+            # To get every questions that has not been answered before in the given category
+            if current_category_id == 0:
+                all_questions = Question.query.filter(Question.id.notin_
+                (past_questions), Question.category == current_category_id).all()
 
             else:
-                questions = Question.query.filter(Question.id.notin_(past_questions), 
-                Question.category == category_id).all()
+                all_questions = Question.query.filter(Question.id.notin_
+                (past_questions), Question.category == current_category_id).all()
 
             question = None
             if(questions):
-                question = random.choice(questions)
+
+                # Get a random question from the gotten past questions
+                picked_question = random.choice(all_questions)
 
             return jsonify({
                 'success': True,
-                'question': question.format()
+                'question': picked_question.format()
             })
 
         except:
-            abort(422)
+            abort(400)
 
     """
     @TODO:DONE
